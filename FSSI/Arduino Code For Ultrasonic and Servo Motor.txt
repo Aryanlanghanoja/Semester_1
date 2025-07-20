@@ -1,0 +1,34 @@
+#include <afstandssensor.h>
+#include <EduIntro.h>
+
+// AfstandsSensor(triggerPin, echoPin);
+AfstandsSensor afstandssensor(10, 11);  // Starter afstandssensoren på ben 10 og 11.
+ServoMotor servo(D6);		// creating the object 'servo' on pin D6
+
+double Distance;
+void setup ()
+{
+    Serial.begin(9600);  // Opsætter serial kommunikation tilbage til computeren
+}
+
+void loop ()
+{
+    Distance=afstandssensor.afstandCM();
+    Serial.print("Distance:-");
+    Serial.print(Distance);
+    Serial.print("\n");
+    delay(500);
+
+    if(afstandssensor.afstandCM() <= 30.00)
+    {
+        servo.write(180);
+        delay (5000);   // wait for a second
+        servo.write(0);
+    }
+
+}
+
+
+
+
+
